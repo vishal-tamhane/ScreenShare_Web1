@@ -1,34 +1,27 @@
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-import express from 'express'; 
-import redis from 'redis';
-import { v4 as uuidv4 } from 'uuid';
+// Fix for __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
-const client = redis.createClient(); 
+const PORT = 3000;
 
-app.use(express.urlencoded({ extended: true }));
+// Set up EJS as the view engine
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
+// Serve static files (CSS, JS, images)
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Route for the landing page
 app.get('/', (req, res) => {
-    res.render('home');
-})
-// Route to generate sharing code
-app.post('/start', async (req, res) => {
-    const code = Math.random().toString(36).substr(2, 6).toUpperCase();
-    await client.setEx(code, 1800, uuidv4());  // Store for 30 mins
-    res.render('share', { code });
+  res.render('index');
 });
 
-// Route to join session
-app.post('/join-session', async (req, res) => {
-    const { code } = req.body;
-    const session = await client.get(code);
-    
-    if (session) {
-        res.send('Connected to screen share!');
-    } else {
-        res.send('Invalid or expired code.');
-    }
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
-
-app.listen(3000, () => console.log("Server running on http://localhost:3000"));

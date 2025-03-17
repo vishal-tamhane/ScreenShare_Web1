@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screenshare Project</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Instant Screen Sharing Made Simple</h1>
+                    <p>Connect and collaborate in real-time with just one click</p>
+                    <div class="cta-buttons">
+                        <button class="btn generate-btn" id="generateBtn">Generate Code</button>
+                        <button class="btn join-btn" id="joinBtn">Join Room</button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="screen-preview"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <%- include('partials/footer') %>
+</body>
+</html>
