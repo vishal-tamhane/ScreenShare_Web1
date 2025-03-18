@@ -14,11 +14,9 @@
 }
 
 body {
-    /* background: linear-gradient(236deg, #242f34 40%, #5a8eb1 30%); */
     background: linear-gradient(90deg, #000000 2%, #012838 50%, #01374d 100%);
-    /* background: linear-gradient(25deg,#242f34 40%, #5a8eb1 30%); */
-    /* background-color: rgba(59, 130, 246, 0.5); */
     min-height: 100vh;
+    width: 100%;
 }
 
 .navbar {
@@ -40,7 +38,14 @@ body {
 .navbar .container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items:center;
+    padding: 0 , 2rem;
+}
+.navbar .container .logo {
+    display: flex;
+    justify-content:flex-start;
+    align-items:center;
+    margin-left: 0;
 }
 
 .logo {
@@ -48,12 +53,15 @@ body {
     font-weight: 600;
     color: var(--primary);
     text-decoration: none;
+    justify-content: flex-start;
 }
 
 .nav-links {
     display: flex;
     gap: 2rem;
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-links a {
@@ -170,6 +178,16 @@ p {
     width: 400px;
     height: 400px;
     margin: 0 auto;
+}
+@media (max-width: 480px) {
+    .vault-container{
+        width: 270px;
+        height: 270px;
+    }
+    .vault-door{
+        width: 72%;
+        height: 72%;
+    }
 }
 
 .vault {
@@ -328,8 +346,8 @@ p {
 .step-icon {
     width: 50px;
     height: 50px;
-    background: #68f526;
-    color: white;
+    background: #4bb21c;
+    color: black;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -353,8 +371,23 @@ p {
 .step {
     border: 1px solid #ffffff;
     opacity: 0;
-    transform: translateY(20px);
+    
+}
+.step1 {
+    transform: translateY(40px);
     transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.step2 {
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.step3 {
+    transform: translateY(40px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+.step4 {
+    transform: translateY(40px);
+    transition: opacity 1.3s ease, transform 1.3s ease;
 }
 
 .step-visible {
@@ -429,6 +462,8 @@ p {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    
+    text-align: center;
 }
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -471,6 +506,18 @@ p {
 
     .nav-links {
         display: none;
+    }
+}
+@media (max-width: 768px) {
+    .footerContainer {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Media query for mobile devices */
+@media (max-width: 480px) {
+    .footerContainer {
+        grid-template-columns: 1fr;
     }
 }
 
