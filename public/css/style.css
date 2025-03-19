@@ -394,7 +394,130 @@ p {
     opacity: 1;
     transform: translateY(0);
 }
+/* .................Creating the room id............... */
 
+.createid{
+    text-align: center;
+    padding: 4rem 2rem;
+    width: 100%;
+    height: 100vh;
+    padding-top: 100px;
+}
+.createid-inner{
+    color: white;
+    width: 60%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    background-color: #2a5d66;
+}
+.createid-inner1{
+    width: 60%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 5px auto;
+    padding-bottom: 1rem;
+}
+.createid-inner1 input{
+    padding-left: 10px;
+    width: 50%;
+    height: 40px;
+    color: rgb(0, 0, 0);
+    font-size: 1.0rem;
+    margin-bottom: 1rem;
+    border: 1px solid #6a7995;
+    border-radius: 5px;
+}
+.createid-inner1 button{
+    width: 30%;
+    height: 40px;
+    color: white;
+    font-size: 1.0rem;
+    margin-bottom: 1rem;
+    background-color: #4b938b;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+.createid-inner1 button:hover{
+    background-color: #00a491;
+}
+.createid-inner1 button:active{
+    background-color: #112220;
+}
+.createid h1{
+    color: rgb(255, 255, 255);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+.createid-inner h2{
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+@media (max-width: 1100px) {
+    .createid-inner {
+        width: 80%; /* Adjust width for tablets */
+    }
+    .createid{
+        padding-top: 180px;
+    }
+}
+@media (max-width: 768px) {
+    .createid-inner1{
+        width: 80%;
+    }
+    .createid{
+        padding-top: 100px;
+    }
+    .createid-inner1 input{
+        padding-left: 10px;
+        width: 70%;
+        height: 40px;
+        font-size: 1.0rem;
+        margin-right: 1rem;
+    }
+    .createid-inner1 button{
+        width: 50%;
+        height: 40px;
+        font-size: 1.0rem;
+        cursor: pointer;
+    }
+    .createid-inner {
+        width: 90%; /* Adjust width for tablets */
+    }
+}
+
+/* Media query for mobile devices */
+@media (max-width: 480px) {
+    .createid-inner {
+        width: 100%; /* Adjust width for mobile devices */
+    }
+    .createid{
+        padding-top: 100px;
+    }
+    .createid-inner1{
+        width: 90%;
+    }
+    .createid-inner1 input{
+        padding-left: 10px;
+        width: 80%;
+        height: 40px;
+        font-size: 0.7rem;
+        margin-right: 1rem;
+    }
+    .createid-inner1 button{
+        width: 50%;
+        height: 40px;
+        color: white;
+        font-size: 0.7rem;
+    }
+}
 /* ......................Footer............. */
 .footerSection{
     background: #011c27;

@@ -20,6 +20,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
   res.render('index');
 });
+app.get('/generate', (req, res) => {
+  res.render('CreateIdSender');
+});
 
 // Start the server
 app.listen(PORT, () => {
