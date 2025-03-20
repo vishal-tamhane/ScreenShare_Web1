@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+
+<section>
+  <div class="join-room">
+    <h1>Join a Room</h1>
+    <p>Enter the Room ID provided by the sender:</p>
+    <div class="join-room-input">
+      <input type="text" id="joinRoomID" placeholder="Enter Room ID" />
+      <button onclick="joinRoom()">Join Room</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  function joinRoom() {
+    const roomID = document.getElementById("joinRoomID").value.trim();
+    if (!roomID) {
+      alert("Please enter a Room ID!");
+      return;
+    }
+    // Ensure receiver flag is not set
+    localStorage.removeItem("isSender");
+    window.location.href = `/room/${roomID}`;
+  }
+</script>
+
+<%- include('partials/footer') %>

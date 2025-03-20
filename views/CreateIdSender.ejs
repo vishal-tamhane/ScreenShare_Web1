@@ -1,26 +1,77 @@
 <%- include('partials/header') %>
 
 <section>
-    <div class="createid">
-        <h1>Generate Unique ID</h1>
-        <div class = "createid-inner1">
-            <input type="text" placeholder="Enter Your Name" id=" User Name" />
-            <button>Generate ID </button>
-        </div>
-        
-        <div class="createid-inner">
-            <p><h4>Terms and conditions</h4>
-                <li><ul>1️⃣ Room ID must be unique (6-8 character alphanumeric, no special characters).</ul>
-                <ul>2️⃣ Prevent spam by rate limiting room creation (e.g., max 5 per minute).</ul>
-                <ul>3️⃣ Auto-expire inactive rooms (e.g., delete after 30 minutes).</ul>
-                <ul>4️⃣ Secure access by preventing unauthorized users from guessing IDs. 🚀</ul>
-                </li>
-            </p>
-        </div>
-        
-        
-
+  <div class="createid">
+    <h1>Generate Unique ID</h1>
+    <div class="createid-inner1">
+      <input type="text" placeholder="Enter Your Name" id="userName" />
+      <button onclick="generateID()">Generate ID</button>
     </div>
+
+    <div class="createid-inner2">
+      <h3>Your Room ID:</h3>
+      <p id="roomID"></p>
+      <button id="copyRoom" onclick="copyRoomID()" disabled>Copy Room ID</button>
+      <button id="startShare" onclick="startSharing()" disabled>Start Screen Sharing</button>
+    </div>
+
+    <div class="createid-inner">
+      <h4>Terms and conditions</h4>
+      <ul>
+        <li>1️⃣ Room ID must be unique (6-8 character alphanumeric, no special characters).</li>
+        <li>2️⃣ Prevent spam by rate limiting room creation (e.g., max 5 per minute).</li>
+        <li>3️⃣ Auto-expire inactive rooms (e.g., delete after 30 minutes).</li>
+        <li>4️⃣ Secure access by preventing unauthorized users from guessing IDs. 🚀</li>
+      </ul>
+    </div>
+  </div>
 </section>
+
+<script>
+  async function generateID() {
+    let userName = document.getElementById("userName").value.trim();
+    if (userName === "") {
+      alert("Please enter your name!");
+      return;
+    }
+    try {
+      let response = await fetch("/generate-id", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userName })
+      });
+      let data = await response.json();
+      if (response.ok) {
+        document.getElementById("roomID").innerText = data.roomId;
+        localStorage.setItem("roomID", data.roomId);
+        document.getElementById("startShare").disabled = false;
+        document.getElementById("copyRoom").disabled = false;
+      } else {
+        alert("Error: " + data.error);
+      }
+    } catch (error) {
+      console.error("Error generating ID:", error);
+    }
+  }
+
+  function copyRoomID() {
+    const roomID = document.getElementById("roomID").innerText;
+    if (!roomID) return alert("No Room ID to copy!");
+    navigator.clipboard.writeText(roomID).then(() => {
+      alert("Room ID copied!");
+    });
+  }
+
+  function startSharing() {
+    let roomID = localStorage.getItem("roomID");
+    if (!roomID) {
+      alert("Please generate a Room ID first!");
+      return;
+    }
+    // Set flag so client knows this user is the sender
+    localStorage.setItem("isSender", "true");
+    window.location.href = `/room/${roomID}`;
+  }
+</script>
 
 <%- include('partials/footer') %>

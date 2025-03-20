@@ -1,0 +1,12 @@
+<%- include('partials/header') %>
+
+<section>
+  <h1>Room: <%= roomID %></h1>
+  <p id="status">Waiting for the sender to start sharing...</p>
+  <video id="video" autoplay playsinline></video>
+</section>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/screenshare.js"></script>
+
+<%- include('partials/footer') %>
