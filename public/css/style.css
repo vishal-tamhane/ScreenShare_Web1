@@ -404,14 +404,19 @@ p {
     padding-top: 100px;
 }
 .createid-inner{
-    color: white;
+    color: rgb(138, 3, 3);
     width: 60%;
     height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    margin: 0 auto;
+    justify-content: column;
+    margin: 1rem auto;
+    padding:1rem;
     background-color: #2a5d66;
+}
+.terms-list{
+    list-style: none;
+    text-align: left;
 }
 .createid-inner1{
     width: 60%;
@@ -613,9 +618,7 @@ p {
 }
 /* ................join room ............... */
 .container_join-room{
-    background-color: #1e4bb5;
-    font-size: larger;
-    font-style: italic;
+    background: linear-gradient(90deg, #000000 2%, #01374d 50%, #012838 100%);
     height: 80vh;
     display: flex;
     justify-content: center;
@@ -635,7 +638,6 @@ p {
     transition: background 0.3s ease;
 }
 #joinRoomID{
-
     width: 100%;
     height: 40px;
     color: rgb(0, 0, 0);
@@ -645,8 +647,13 @@ p {
     border-radius: 5px;
     padding-left: 10px;
 }
+.join-room h1{
+    color: rgb(255, 255, 255);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
 @media (max-width: 600px) {
-    #joinRoomIDf {
+    #joinRoomID {
         width: 60%; /* Adjust width for tablets */
     }
 }
