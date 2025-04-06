@@ -396,20 +396,20 @@ p {
 }
 /* .................Creating the room id............... */
 
-.createid{
+.createid {
     text-align: center;
     padding: 4rem 2rem;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh; /* instead of height: 100vh */
     padding-top: 100px;
-}
+  }
+  
 .createid-inner{
     color: rgb(138, 3, 3);
     width: 60%;
     height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: column;
     margin: 1rem auto;
     padding:1rem;
     background-color: #2a5d66;
