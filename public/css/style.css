@@ -4,6 +4,12 @@
     --accent: #f59e0b;
     --dark: #506484;
     --light: #f8fafc;
+    --h1-size-desktop: 3.5rem;
+    --h1-size-mobile: 2.5rem;
+    --p-size-desktop: 1.2rem;
+    --p-size-mobile: 1rem;
+    --container-padding: 2rem;
+    --border-radius: 8px;
 }
 
 * {
@@ -17,43 +23,47 @@ body {
     background: linear-gradient(90deg, #000000 2%, #012838 50%, #01374d 100%);
     min-height: 100vh;
     width: 100%;
+    overflow-x: hidden;
 }
 
 .navbar {
     background: transparent;
     padding: 1rem 0;
     box-shadow: 1px 5px 10px rgba(249, 246, 246, 0.1);
-    /* position: fixed; */
     width: 100%;
     top: 0;
     z-index: 1000;
+    position: relative;
 }
 
 .container {
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 var(--container-padding);
 }
 
 .navbar .container {
     display: flex;
     justify-content: space-between;
-    align-items:center;
-    padding: 0 , 2rem;
+    align-items: center;
+    padding: 0 2rem;
+    position: relative;
 }
+
 .navbar .container .logo {
     display: flex;
-    justify-content:flex-start;
-    align-items:center;
+    justify-content: flex-start;
+    align-items: center;
     margin-left: 0;
+    z-index: 1002;
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
     font-weight: 600;
     color: var(--primary);
     text-decoration: none;
-    justify-content: flex-start;
 }
 
 .nav-links {
@@ -62,6 +72,11 @@ body {
     list-style: none;
     margin: 0;
     padding: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.nav-links li {
+    opacity: 1;
 }
 
 .nav-links a {
@@ -76,7 +91,7 @@ body {
 }
 
 .hero {
-    padding: 8rem 0 4rem;
+    padding: clamp(4rem, 8vh, 8rem) 0 4rem;
 }
 
 .hero .container {
@@ -87,14 +102,14 @@ body {
 }
 
 .hero-content h1 {
-    font-size: 3.5rem;
+    font-size: clamp(var(--h1-size-mobile), 5vw, var(--h1-size-desktop));
     color: white;
     margin-bottom: 1.5rem;
     line-height: 1.2;
 }
 
 .hero-content p {
-    font-size: 1.2rem;
+    font-size: clamp(var(--p-size-mobile), 2vw, var(--p-size-desktop));
     color: #64748b;
     margin-bottom: 2rem;
 }
@@ -108,16 +123,23 @@ body {
 .btn {
     padding: 1rem 2rem;
     border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
+    border-radius: var(--border-radius);
+    font-size: clamp(1rem, 1.5vw, 1.1rem);
     font-weight: 500;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 44px;
+    touch-action: manipulation;
 }
 
 .btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
 }
 
 .generate-btn {
@@ -130,174 +152,354 @@ body {
     color: white;
 }
 
+/* Screen Preview Section */
 .screen-preview {
     background-image: url('/assets/1.webp');
     background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
     border-radius: 20px;
     padding: 1.5rem;
-    box-shadow: 10px 10px 20px rgba(12, 41, 51, 0.3);
-    height: 400px;
+    box-shadow: 0 10px 20px rgba(12, 41, 51, 0.3);
+    aspect-ratio: 16/9;
+    max-height: 400px;
+    width: 100%;
     position: relative;
     overflow: hidden;
 }
 
-.screen-preview::after {
-    /* content: ''; */
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    animation: gradientShift 8s infinite alternate;
+/* Video Element Styles */
+#video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--border-radius);
 }
 
+/* Room Styles */
+.container_join-room {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+}
+
+.join-room-input {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+#joinRoomID {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--border-radius);
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 1rem;
+    min-height: 44px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    :root {
+        --container-padding: 1.5rem;
+    }
+    
+    .hero .container {
+        gap: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero .container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .cta-buttons {
+        justify-content: center;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+    
+    .screen-preview {
+        max-height: 300px;
+    }
+    
+    .container_join-room {
+        margin: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --container-padding: 1rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+        padding: 0.875rem 1.5rem;
+    }
+    
+    .join-room-input {
+        flex-direction: column;
+    }
+    
+    #joinRoomID {
+        width: 100%;
+    }
+    
+    .screen-preview {
+        max-height: 250px;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary: #3b82f6;
+        --secondary: #2563eb;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* Status Message Styles */
+#status {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: var(--border-radius);
+    z-index: 1000;
+}
 
 /* ................Why Section........... */
 
 .why-section {
     text-align: center;
-    padding: 2rem;
+    padding: 4rem 2rem;
+    position: relative;
 }
 
-h2 {
+.why-section h2 {
     color: #d8dade;
     font-size: 2.5rem;
     margin-bottom: 1rem;
 }
 
-p {
+.why-section p {
     font-size: 1.2rem;
     color: #a0aec0;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 }
 
-/* Vault Container */
-.vault-container {
-    position: relative;
-    width: 400px;
-    height: 400px;
+/* Tree Structure */
+.tree-container {
+    max-width: 1200px;
     margin: 0 auto;
-}
-@media (max-width: 480px) {
-    .vault-container{
-        width: 270px;
-        height: 270px;
-    }
-    .vault-door{
-        width: 72%;
-        height: 72%;
-    }
+    padding: 2rem 0;
 }
 
-.vault {
-    width: 100%;
-    height: 100%;
-    background: #2d3748;
-    border-radius: 20%;
+.tree {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    gap: 2rem;
+}
+
+/* Root Node */
+.tree-root {
+    background: linear-gradient(145deg, var(--primary), var(--secondary));
+    padding: 1.5rem 3rem;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
     position: relative;
-    box-shadow: 0 0 px rgba(0, 0, 0, 0.5);
+    z-index: 2;
 }
 
-.vault-door {
-    width: 72%;
-    height: 72%;
-    background: linear-gradient(90deg, #012838 2%, #01374d 50%, #000000 100%);
-    border-radius: 20%;
-    border: 5px solid #718096;
-    box-shadow: var(--vault-shadow, inset 0 0px 10px rgba(6, 6, 6, 0.5));
-    transition: box-shadow 0.3s ease;
-}
-
-/* Locks */
-.lock {
-    position: absolute;
-    width: 55px;
-    height: 55px;
-    background: #4a5568;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
-    transform-origin: center;
-}
-
-.lock:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.8);
-}
-
-.lock-icon {
+.root-icon {
     font-size: 2rem;
 }
 
-.tooltip {
+/* Branches Container */
+.tree-branches {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    width: 100%;
+    position: relative;
+    padding-top: 2rem;
+}
+
+/* Branch Connection Lines */
+.tree-branches::before {
+    content: '';
     position: absolute;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 0.5rem;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    width: 200px;
-    text-align: center;
-    bottom: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.lock:hover .tooltip {
-    opacity: 1;
-}
-
-/* Lock Positions */
-.secure {
     top: 0;
     left: 50%;
     transform: translateX(-50%);
+    width: 2px;
+    height: 2rem;
+    background: var(--primary);
 }
 
-.encryption {
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
+.tree-branches::after {
+    content: '';
+    position: absolute;
+    top: 2rem;
+    left: 10%;
+    width: 80%;
+    height: 2px;
+    background: var(--primary);
 }
 
-.multi-device {
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
+/* Individual Branches */
+.tree-branch {
+    position: relative;
+    padding-top: 2rem;
 }
 
-.auto-delete {
-    bottom: 0;
+.tree-branch::before {
+    content: '';
+    position: absolute;
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
+    width: 2px;
+    height: 2rem;
+    background: var(--primary);
+}
+
+.branch-content {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 1.5rem;
+    height: 100%;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.branch-content:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--primary);
+}
+
+.feature-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.branch-content h3 {
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.branch-content p {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* Animation classes for scroll reveal */
+.tree-branch {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+}
+
+.tree-branch.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tree-branch:nth-child(1).active { transition-delay: 0.2s; }
+.tree-branch:nth-child(2).active { transition-delay: 0.4s; }
+.tree-branch:nth-child(3).active { transition-delay: 0.6s; }
+.tree-branch:nth-child(4).active { transition-delay: 0.8s; }
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .tree-branches {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem 2rem;
+    }
+
+    .tree-branches::after {
+        width: 60%;
+        left: 20%;
+    }
+}
+
+@media (max-width: 640px) {
+    .tree-branches {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .tree-branches::after {
+        display: none;
+    }
+
+    .tree-root {
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
+    }
+
+    .why-section h2 {
+        font-size: 2rem;
+    }
+
+    .why-section p {
+        font-size: 1rem;
+    }
 }
 
 /* CTA Button */
 .cta-button {
-    background: #68f526;
-    color: black;
-    border: none;
+    display: inline-block;
+    background: var(--accent);
+    color: white;
     padding: 1rem 2rem;
-    font-size: 1rem;
-    border-radius: 10px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+    margin-top: 3rem;
+    transition: all 0.3s ease;
+    border: none;
     cursor: pointer;
-    margin-top: 2rem;
-    transition: background 0.3s ease;
 }
 
 .cta-button:hover {
-    background: #44a617;
-    box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
 }
 
 /* .............use.......... */
@@ -696,4 +898,470 @@ p {
     position:center;
     margin: 0 auto;
     margin-top: 20px;
+}
+
+/* Add these new styles for the mobile menu */
+
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1002;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    transition: all 0.3s ease-in-out;
+    background-color: white;
+}
+
+/* Mobile Menu Styles */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .nav-links {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        gap: 0;
+        flex-direction: column;
+        background-color: rgba(0, 0, 0, 0.95);
+        width: 100%;
+        height: 100vh;
+        text-align: center;
+        transition: 0.3s ease-in-out;
+        padding-top: 70px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .nav-links.active {
+        left: 0;
+        display: flex;
+    }
+
+    .nav-links li {
+        margin: 1.5rem 0;
+        opacity: 0;
+        width: 100%;
+    }
+
+    .nav-links.active li {
+        opacity: 1;
+    }
+
+    .nav-links li a {
+        font-size: 1.5rem;
+        display: block;
+        padding: 1rem 0;
+        color: white;
+        width: 100%;
+    }
+
+    .nav-links.active li {
+        animation: navLinkFade 0.5s ease forwards;
+    }
+
+    .nav-links.active li:nth-child(1) { animation-delay: 0.2s; }
+    .nav-links.active li:nth-child(2) { animation-delay: 0.3s; }
+    .nav-links.active li:nth-child(3) { animation-delay: 0.4s; }
+}
+
+/* Animation Keyframes */
+@keyframes navLinkFade {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Prevent body scroll when menu is open */
+body.menu-open {
+    overflow: hidden;
+}
+
+/* Add these animation keyframes at the end of your CSS file */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Add initial states for animations */
+.hero-content {
+    opacity: 0;
+    animation: slideInLeft 1s ease forwards;
+}
+
+.hero-image {
+    opacity: 0;
+    animation: slideInRight 1s ease forwards;
+}
+
+/* Scroll Animation Classes */
+.scroll-animate {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.6s ease;
+}
+
+.scroll-animate.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Add animation delays for hero section */
+.hero-content h1 {
+    animation-delay: 0.2s;
+}
+
+.hero-content p {
+    animation-delay: 0.4s;
+}
+
+.cta-buttons {
+    animation-delay: 0.6s;
+}
+
+/* Add specific animations for different sections */
+.why-section h2,
+.why-section p {
+    opacity: 0;
+}
+
+.vault-container {
+    opacity: 0;
+}
+
+.step {
+    opacity: 0;
+}
+
+/* Stagger animations for steps */
+.step.active:nth-child(1) { transition-delay: 0.2s; }
+.step.active:nth-child(2) { transition-delay: 0.4s; }
+.step.active:nth-child(3) { transition-delay: 0.6s; }
+.step.active:nth-child(4) { transition-delay: 0.8s; }
+
+/* Animation for vault features */
+.lock {
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+.lock.active {
+    opacity: 1;
+}
+
+.lock.secure.active { transition-delay: 0.2s; }
+.lock.encryption.active { transition-delay: 0.4s; }
+.lock.multi-device.active { transition-delay: 0.6s; }
+.lock.auto-delete.active { transition-delay: 0.8s; }
+
+/* Create Room Page Styles */
+.create-room-page {
+    min-height: calc(100vh - 100px);
+    padding: 4rem 0;
+}
+
+.create-room-section {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.create-room-content {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.create-room-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.create-room-header h1 {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.create-room-header p {
+    color: #94a3b8;
+    font-size: 1.1rem;
+}
+
+.create-room-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.input-group {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.input-group input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.room-details {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.room-details h3 {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.room-id-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.room-id {
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    color: var(--primary);
+    font-size: 1.2rem;
+    font-weight: 600;
+    min-width: 200px;
+}
+
+.copy-btn {
+    padding: 0.75rem 1.5rem;
+    background: var(--secondary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.copy-btn:hover {
+    background: var(--primary);
+}
+
+.start-btn {
+    width: 100%;
+    max-width: 300px;
+    padding: 1rem 2rem;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.start-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
+}
+
+.terms-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.terms-section h4 {
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.terms-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+}
+
+.terms-list li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: #94a3b8;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.terms-list li:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(5px);
+}
+
+.term-icon {
+    font-size: 1.5rem;
+    min-width: 40px;
+    text-align: center;
+}
+
+.term-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Notification Styles */
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.notification.success {
+    background: #10b981;
+}
+
+.notification.error {
+    background: #ef4444;
+}
+
+.notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .create-room-content {
+        padding: 2rem 1rem;
+    }
+
+    .create-room-header h1 {
+        font-size: 2rem;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+
+    .input-group input,
+    .input-group button {
+        width: 100%;
+    }
+
+    .room-id-container {
+        flex-direction: column;
+    }
+
+    .room-id {
+        width: 100%;
+    }
+
+    .copy-btn {
+        width: 100%;
+    }
+}
+
+/* Animation Classes */
+.create-room-header,
+.create-room-form,
+.terms-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+}
+
+.create-room-header.active {
+    animation-delay: 0.2s;
+}
+
+.create-room-form.active {
+    animation-delay: 0.4s;
+}
+
+.terms-section.active {
+    animation-delay: 0.6s;
+}
+
+.active {
+    opacity: 1;
+    transform: translateY(0);
 }

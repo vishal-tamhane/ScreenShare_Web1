@@ -1,108 +1,130 @@
 <%- include('partials/header') %>
-<style>
-  body, html {
-    margin: 0;
-    padding: 0;
-    min-height: 100%;
-    background-color: #111;
-  }
 
-  section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 4rem 2rem;
-  }
+<main class="create-room-page scroll-animate">
+    <section class="create-room-section">
+        <div class="container">
+            <div class="create-room-content">
+                <div class="create-room-header scroll-animate">
+                    <h1>Generate Unique ID</h1>
+                    <p>Create your secure room for screen sharing</p>
+                </div>
 
-  #video {
-    max-width: 100%;
-    max-height: 90vh;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    background-color: black;
-  }
+                <div class="create-room-form scroll-animate">
+                    <div class="input-group">
+                        <input type="text" placeholder="Enter Your Name" id="userName" />
+                        <button class="btn generate-btn" onclick="generateID()">Generate ID</button>
+                    </div>
 
-  #status {
-    margin-bottom: 1rem;
-    color: white;
-    font-size: 1.2rem;
-  }
-</style>
+                    <div class="room-details" id="roomDetails">
+                        <h3>Your Room ID:</h3>
+                        <div class="room-id-container">
+                            <p id="roomID" class="room-id"></p>
+                            <button class="btn copy-btn" id="copyRoom" onclick="copyRoomID()" disabled>
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <button class="btn start-btn" id="startShare" onclick="startSharing()" disabled>
+                            Start Screen Sharing
+                        </button>
+                    </div>
+                </div>
 
+                <div class="terms-section scroll-animate">
+                    <h4>Terms and Conditions</h4>
+                    <ul class="terms-list">
+                        <li>
+                            <span class="term-icon">🔐</span>
+                            <span class="term-text">Room ID must be unique (6-8 character alphanumeric)</span>
+                        </li>
+                        <li>
+                            <span class="term-icon">⏱️</span>
+                            <span class="term-text">Limited to 5 room creations per minute</span>
+                        </li>
+                        <li>
+                            <span class="term-icon">⌛</span>
+                            <span class="term-text">Rooms auto-expire after 30 minutes of inactivity</span>
+                        </li>
+                        <li>
+                            <span class="term-icon">🛡️</span>
+                            <span class="term-text">Secure access with unauthorized entry prevention</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
 
-<section>
-  <div class="createid">
-    <h1>Generate Unique ID</h1>
-    <div class="createid-inner1">
-      <input type="text" placeholder="Enter Your Name" id="userName" />
-      <button onclick="generateID()">Generate ID</button>
-    </div>
+<!-- Add Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <div class="createid-inner2">
-      <h3>Your Room ID:</h3>
-      <p id="roomID"></p>
-      <button id="copyRoom" onclick="copyRoomID()" disabled>Copy Room ID</button>
-      <button id="startShare" onclick="startSharing()" disabled>Start Screen Sharing</button>
-    </div>
-
-    <div class="createid-inner">
-      <h4>Terms and conditions</h4>
-      <ul class="terms-list">
-        <li>1️⃣ Room ID must be unique (6-8 character alphanumeric, no special characters).</li>
-        <li>2️⃣ Prevent spam by rate limiting room creation (e.g., max 5 per minute).</li>
-        <li>3️⃣ Auto-expire inactive rooms (e.g., delete after 30 minutes).</li>
-        <li>4️⃣ Secure access by preventing unauthorized users from guessing IDs. 🚀</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
+<script src="/js/animations.js"></script>
 <script>
-  async function generateID() {
-    let userName = document.getElementById("userName").value.trim();
-    if (userName === "") {
-      alert("Please enter your name!");
-      return;
+    async function generateID() {
+        let userName = document.getElementById("userName").value.trim();
+        if (userName === "") {
+            showNotification("Please enter your name!", "error");
+            return;
+        }
+        try {
+            let response = await fetch("/generate-id", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userName })
+            });
+            let data = await response.json();
+            if (response.ok) {
+                document.getElementById("roomID").innerText = data.roomId;
+                localStorage.setItem("roomID", data.roomId);
+                document.getElementById("startShare").disabled = false;
+                document.getElementById("copyRoom").disabled = false;
+                showNotification("Room ID generated successfully!", "success");
+            } else {
+                showNotification("Error: " + data.error, "error");
+            }
+        } catch (error) {
+            console.error("Error generating ID:", error);
+            showNotification("An error occurred. Please try again.", "error");
+        }
     }
-    try {
-      let response = await fetch("/generate-id", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userName })
-      });
-      let data = await response.json();
-      if (response.ok) {
-        document.getElementById("roomID").innerText = data.roomId;
-        localStorage.setItem("roomID", data.roomId);
-        document.getElementById("startShare").disabled = false;
-        document.getElementById("copyRoom").disabled = false;
-      } else {
-        alert("Error: " + data.error);
-      }
-    } catch (error) {
-      console.error("Error generating ID:", error);
-    }
-  }
 
-  function copyRoomID() {
-    const roomID = document.getElementById("roomID").innerText;
-    if (!roomID) return alert("No Room ID to copy!");
-    navigator.clipboard.writeText(roomID).then(() => {
-      alert("Room ID copied!");
-    });
-  }
-
-  function startSharing() {
-    let roomID = localStorage.getItem("roomID");
-    if (!roomID) {
-      alert("Please generate a Room ID first!");
-      return;
+    function copyRoomID() {
+        const roomID = document.getElementById("roomID").innerText;
+        if (!roomID) {
+            showNotification("No Room ID to copy!", "error");
+            return;
+        }
+        navigator.clipboard.writeText(roomID).then(() => {
+            showNotification("Room ID copied to clipboard!", "success");
+        });
     }
-    // Set flag so client knows this user is the sender
-    localStorage.setItem("isSender", "true");
-    window.location.href = `/room/${roomID}`;
-  }
+
+    function startSharing() {
+        let roomID = localStorage.getItem("roomID");
+        if (!roomID) {
+            showNotification("Please generate a Room ID first!", "error");
+            return;
+        }
+        localStorage.setItem("isSender", "true");
+        window.location.href = `/room/${roomID}`;
+    }
+
+    function showNotification(message, type) {
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }, 100);
+    }
 </script>
 
 <%- include('partials/footer') %>
