@@ -1,5 +1,5 @@
 const socket = io();
-const config = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
+const config = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] }; //The STUN server helps devices find their public IP for NAT traversal.
 const roomID = localStorage.getItem("roomID") || window.location.pathname.split("/")[2];
 const isSender = localStorage.getItem("isSender") === "true";
 
