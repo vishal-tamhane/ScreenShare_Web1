@@ -33,13 +33,10 @@
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📜 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 👥 Authors
 
-- Your Name - Initial work - [YourGitHub](https://github.com/yourusername)
+- Vish@l - Initial work - (https://github.com/vishal-tamhane)
 
 ## 🙏 Acknowledgments
 
@@ -49,4 +46,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-For support, email your-email@example.com or create an issue in the repository.
+For support, email vishaltamhane04@gmail.com or create an issue in the repository.
