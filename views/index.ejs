@@ -33,64 +33,56 @@
                 <h2 class="section-title">Why Choose Screenshare?</h2>
                 <p class="section-subtitle">Your data deserves the highest level of security and convenience.</p>
                 
-                <div class="feature-tree">
-                    <!-- Main Feature -->
-                    <div class="tree-center">
-                        <div class="main-feature">
-                            <span class="feature-icon">🛡️</span>
-                            <h3>Security Features</h3>
-                        </div>
-                        <div class="center-line"></div>
-                    </div>
-                    
-                    <!-- Feature Branches -->
-                    <div class="feature-branches">
-                        <!-- Feature 1 -->
-                        <div class="feature-item left">
-                            <div class="feature-line-left"></div>
-                            <div class="feature-content">
-                                <span class="feature-icon">🔒</span>
-                                <h4>Secure & Private</h4>
-                                <p>Your unique Room ID ensures only you can access.</p>
-                            </div>
-                        </div>
-
-                        <!-- Feature 2 -->
-                        <div class="feature-item right">
-                            <div class="feature-content">
-                                <span class="feature-icon">🔐</span>
-                                <h4>End-to-End Encryption</h4>
-                                <p>Your files are encrypted from start to finish.</p>
-                            </div>
-                            <div class="feature-line-right"></div>
-                        </div>
-
-                        <!-- Feature 3 -->
-                        <div class="feature-item left">
-                            <div class="feature-line-left"></div>
-                            <div class="feature-content">
-                                <span class="feature-icon">📱</span>
-                                <h4>Multi-Device Access</h4>
-                                <p>Access your files from any device, anywhere.</p>
-                            </div>
-                        </div>
-
-                        <!-- Feature 4 -->
-                        <div class="feature-item right">
-                            <div class="feature-content">
-                                <span class="feature-icon">⏳</span>
-                                <h4>Auto-Delete</h4>
-                                <p>Data automatically deleted after set time.</p>
-                            </div>
-                            <div class="feature-line-right"></div>
-                        </div>
-                    </div>
+                <div class="feature-tree-wrapper">
+                  <ul class="feature-tree">
+                    <li>
+                      <div class="main-feature">
+                        <span class="feature-icon">🛡️</span>
+                        <h3>Security Features</h3>
+                      </div>
+                      <ul>
+                        <li>
+                          <div class="feature-content">
+                            <span class="feature-icon">🔒</span>
+                            <h4>Secure & Private</h4>
+                            <p>Only users with your unique Room ID can join your session, ensuring privacy and control.</p>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="feature-content">
+                            <span class="feature-icon">🔐</span>
+                            <h4>End-to-End Encryption</h4>
+                            <p>All shared content is encrypted from sender to receiver, keeping your data safe at every step.</p>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="feature-content">
+                            <span class="feature-icon">📱</span>
+                            <h4>Multi-Device Access</h4>
+                            <p>Join and share your screen seamlessly from desktop, tablet, or mobile—anywhere, anytime.</p>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="feature-content">
+                            <span class="feature-icon">⏳</span>
+                            <h4>Auto-Delete</h4>
+                            <p>All session data is automatically deleted after your session ends, so nothing lingers.</p>
+                          </div>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
                 </div>
-
+              
                 <div class="cta-container">
-                    <button class="btn cta-button">Get Started</button>
+                    <button class="cta-button scroll-animate" onclick="window.location.href='/generate'">
+                        Get Started
+                      </button>
+                      
                 </div>
-            </section>
+              </section>
+              
+              
             <div class="hrClass"><hr></div>
 
             <section class="how-to-use" id="how-to-use">
@@ -130,5 +122,15 @@
     <script src="/js/nav.js"></script>
     <script src="/js/animations.js"></script>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      setTimeout(function() {
+        document.querySelectorAll('.step').forEach(function(el) {
+          el.classList.add('step-visible');
+        });
+      }, 300); // Adjust delay as needed
+    });
+    </script>
+    
 
 </html>

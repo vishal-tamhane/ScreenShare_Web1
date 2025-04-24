@@ -1,17 +1,17 @@
 <%- include('partials/header') %>
 
-<section class="container_join-room">
-  <div class="join-room">
-    <h1>Join a Room</h1>
-    <p>Enter the Room ID provided by the sender:</p>
-    <div class="join-room-input">
-      <input type="text" id="joinRoomID" placeholder="Enter Room ID" />
-      <br>
-      <button onclick="joinRoom()">Join Room</button>
+<main class="join-room-main">
+  <section class="container_join-room">
+    <div class="join-room">
+      <h1>Join a Room</h1>
+      <p>Enter the Room ID provided by the sender:</p>
+      <div class="join-room-input">
+        <input type="text" id="joinRoomID" placeholder="Enter Room ID" />
+        <button onclick="joinRoom()">Join Room</button>
+      </div>
     </div>
-    
-  </div>
-</section>
+  </section>
+</main>
 
 <script>
   function joinRoom() {
@@ -20,7 +20,6 @@
       alert("Please enter a Room ID!");
       return;
     }
-    // Ensure receiver flag is not set
     localStorage.removeItem("isSender");
     window.location.href = `/room/${roomID}`;
   }

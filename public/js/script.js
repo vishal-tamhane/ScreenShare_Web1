@@ -60,3 +60,19 @@ document.addEventListener('DOMContentLoaded', () => {
     console.warn('No elements with class "step" found.');
   }
 });
+
+
+/* Add this to your existing animations.js file */
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+          if (entry.isIntersecting) {
+              entry.target.classList.add('active');
+          }
+      });
+  }, {
+      threshold: 0.1
+  });
+
+  document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
+});
