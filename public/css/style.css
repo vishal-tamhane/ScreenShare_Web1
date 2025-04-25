@@ -101,8 +101,18 @@ body {
     border-radius: 2px;
 }
 
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+    box-sizing: border-box;
+}
+
 .hero {
     padding: clamp(4rem, 8vh, 8rem) 0 4rem;
+    width: 100%;
+    overflow: hidden;
 }
 
 .hero .container {
@@ -110,6 +120,19 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.hero-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.hero-image {
+    max-width: 100%;
+    height: auto;
 }
 
 .hero-content h1 {
@@ -181,8 +204,9 @@ body {
     padding: 1.5rem;
     box-shadow: 0 10px 20px rgba(12, 41, 51, 0.3);
     aspect-ratio: 16/9;
-    max-height: 400px;
+    max-width: 600px;
     width: 100%;
+    margin: 0 auto;
     position: relative;
     overflow: hidden;
 }
@@ -863,6 +887,16 @@ body {
 
 /* Mobile Menu Styles */
 @media (max-width: 768px) {
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 0.5rem 0;
+    }
+
     .hamburger {
         display: block;
         position: fixed;
@@ -881,16 +915,6 @@ body {
 
     .hamburger.active .bar:nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
-    }
-
-    .navbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        background: rgba(0, 0, 0, 0.2);
-        padding: 0.5rem 0;
     }
 
     .navbar .container {
@@ -944,6 +968,41 @@ body {
 
     .nav-links a.active-link::after {
         display: none;
+    }
+
+    .hero .container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+        padding: 0 1rem;
+    }
+
+    .hero-content {
+        max-width: 100%;
+        padding: 0 1rem;
+    }
+
+    .screen-preview {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 3rem 0;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .screen-preview {
+        padding: 1rem;
     }
 }
 

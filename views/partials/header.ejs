@@ -31,12 +31,13 @@
 
     <script>
         // Navigation functionality
-        document.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('load', function() {
             const hamburger = document.querySelector('.hamburger');
             const navLinks = document.querySelector('.nav-links');
             const body = document.body;
 
             if (hamburger && navLinks) {
+                // Toggle menu
                 hamburger.addEventListener('click', function(e) {
                     e.stopPropagation();
                     this.classList.toggle('active');
