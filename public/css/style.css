@@ -192,6 +192,7 @@ body {
 .join-btn {
     background: var(--accent);
     color: white;
+    margin-top: 0.5rem;
 }
 
 /* Screen Preview Section */
@@ -1267,7 +1268,7 @@ main,
   
   .generate-btn {
     width: 100%;
-    /* margin-top: 0.5rem; */
+    margin-top: 0.5rem;
     background-color: #2adb16;
     color: #000;
   
