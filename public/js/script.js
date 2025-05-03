@@ -59,6 +59,107 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     console.warn('No elements with class "step" found.');
   }
+
+  // Navbar Toggle
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    hamburger.classList.toggle('active');
+  });
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+      navLinks.classList.remove('active');
+      hamburger.classList.remove('active');
+    }
+  });
+
+  // Screen Sharing Functionality
+  let mediaStream = null;
+  const startButton = document.getElementById('startSharing');
+  const stopButton = document.getElementById('stopSharing');
+  const videoElement = document.getElementById('screenShare');
+
+  if (startButton && stopButton && videoElement) {
+    startButton.addEventListener('click', async () => {
+      try {
+        mediaStream = await navigator.mediaDevices.getDisplayMedia({
+          video: {
+            cursor: "always"
+          },
+          audio: false
+        });
+        
+        videoElement.srcObject = mediaStream;
+        videoElement.play();
+        
+        startButton.style.display = 'none';
+        stopButton.style.display = 'block';
+        
+        // Show success message
+        showMessage('Screen sharing started successfully!', 'success');
+      } catch (err) {
+        console.error('Error accessing screen:', err);
+        showMessage('Failed to start screen sharing. Please try again.', 'error');
+      }
+    });
+
+    stopButton.addEventListener('click', () => {
+      if (mediaStream) {
+        mediaStream.getTracks().forEach(track => track.stop());
+        videoElement.srcObject = null;
+        
+        startButton.style.display = 'block';
+        stopButton.style.display = 'none';
+        
+        showMessage('Screen sharing stopped.', 'info');
+      }
+    });
+  }
+
+  // Message Display Function
+  function showMessage(message, type = 'info') {
+    const messageContainer = document.createElement('div');
+    messageContainer.className = `screen-share-message ${type}`;
+    messageContainer.textContent = message;
+    
+    const container = document.querySelector('.screen-share-container');
+    if (container) {
+      container.insertBefore(messageContainer, container.firstChild);
+      
+      // Remove message after 5 seconds
+      setTimeout(() => {
+        messageContainer.remove();
+      }, 5000);
+    }
+  }
+
+  // Lazy Loading Images
+  const lazyImages = document.querySelectorAll('img.lazy');
+  
+  if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          img.src = img.dataset.src;
+          img.classList.add('loaded');
+          observer.unobserve(img);
+        }
+      });
+    });
+
+    lazyImages.forEach(img => imageObserver.observe(img));
+  } else {
+    // Fallback for browsers that don't support IntersectionObserver
+    lazyImages.forEach(img => {
+      img.src = img.dataset.src;
+      img.classList.add('loaded');
+    });
+  }
 });
 
 
