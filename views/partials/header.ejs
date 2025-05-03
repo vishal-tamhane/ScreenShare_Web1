@@ -21,7 +21,6 @@
                 <span class="bar"></span>
             </div>
             <ul class="nav-links">
-
                 <li><a href="/generate">Create Room</a></li>
                 <li><a href="/join">Join Room</a></li>
                 <li><a href="/#why-section">Features</a></li>
@@ -29,54 +28,5 @@
             </ul>
         </div>
     </nav>
-
-    <script>
-        // Navigation functionality
-        window.addEventListener('load', function() {
-            const hamburger = document.querySelector('.hamburger');
-            const navLinks = document.querySelector('.nav-links');
-            const body = document.body;
-
-            if (hamburger && navLinks) {
-                // Toggle menu
-                hamburger.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    this.classList.toggle('active');
-                    navLinks.classList.toggle('active');
-                    body.classList.toggle('menu-open');
-                });
-
-                // Close menu when clicking outside
-                document.addEventListener('click', function(e) {
-                    if (navLinks.classList.contains('active') && 
-                        !navLinks.contains(e.target) && 
-                        !hamburger.contains(e.target)) {
-                        hamburger.classList.remove('active');
-                        navLinks.classList.remove('active');
-                        body.classList.remove('menu-open');
-                    }
-                });
-
-                // Close menu when clicking on links
-                const navItems = navLinks.querySelectorAll('a');
-                navItems.forEach(item => {
-                    item.addEventListener('click', () => {
-                        hamburger.classList.remove('active');
-                        navLinks.classList.remove('active');
-                        body.classList.remove('menu-open');
-                    });
-                });
-
-                // Handle window resize
-                window.addEventListener('resize', function() {
-                    if (window.innerWidth > 768) {
-                        hamburger.classList.remove('active');
-                        navLinks.classList.remove('active');
-                        body.classList.remove('menu-open');
-                    }
-                });
-            }
-        });
-    </script>
 </body>
 </html>

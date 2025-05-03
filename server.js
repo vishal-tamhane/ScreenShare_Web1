@@ -58,7 +58,8 @@ const validateRoom = (req, res, next) => {
 // Update your room route with validation
 app.get('/room/:roomID', validateRoom, (req, res) => {
     const { roomID } = req.params;
-    res.render('room', { roomID });
+    const isSender = req.query.isSender === 'true';
+    res.render('room', { roomID, isSender });
 });
 
 // Handle invalid room IDs in generate route

@@ -895,6 +895,7 @@ body {
 @media (max-width: 768px) {
     .navbar {
         padding: 0.5rem 0;
+        background: rgba(0, 0, 0, 0.95);
     }
 
     .hamburger {
@@ -904,6 +905,15 @@ body {
         top: 1rem;
         z-index: 1001;
         cursor: pointer;
+    }
+
+    .hamburger .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        margin: 5px auto;
+        background-color: white;
+        transition: all 0.3s ease-in-out;
     }
 
     .hamburger.active .bar:nth-child(2) {
@@ -916,11 +926,6 @@ body {
 
     .hamburger.active .bar:nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
-    }
-
-    .navbar .container {
-        padding: 0 1rem;
-        position: relative;
     }
 
     .nav-links {
@@ -960,6 +965,7 @@ body {
         padding: 0.5rem 1rem;
         display: block;
         text-align: center;
+        color: white;
     }
 
     .nav-links a.active-link {

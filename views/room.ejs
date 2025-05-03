@@ -1,40 +1,85 @@
 <%- include('partials/header') %>
+
 <style>
-  body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
+  .screen-share-container {
+    min-height: calc(100vh - 60px); /* Account for navbar height */
+    padding: 2rem;
     background-color: #111;
+    color: #fff;
   }
 
-  section {
+  .status-container {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+  }
+
+  .room-id {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4CAF50;
+    margin: 0.5rem 0;
+  }
+
+  .status-message {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+  }
+
+  .screen-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    flex-direction: column;
   }
 
   #video {
-    max-width: 100%;
-    max-height: 90vh;
-    border: 2px solid #ccc;
+    width: 100%;
+    max-height: calc(100vh - 200px);
+    border: 2px solid #333;
     border-radius: 10px;
-    background-color: black;
+    background-color: #000;
   }
 
-  #status {
-    margin-bottom: 1rem;
-    color: white;
-    font-size: 1.2rem;
+  @media (max-width: 768px) {
+    .screen-share-container {
+      padding: 1rem;
+    }
+
+    .room-id {
+      font-size: 1.2rem;
+    }
+
+    .status-message {
+      font-size: 1rem;
+    }
+
+    #video {
+      max-height: calc(100vh - 250px);
+    }
   }
 </style>
 
-<section>
-  <h1>Room: <%= roomID %></h1>
-  <p id="status">Waiting for the sender to start sharing...</p>
-  <video id="video" autoplay playsinline></video>
-</section>
+<div class="screen-share-container">
+  <div class="status-container">
+    <div class="room-id">Room ID: <%= roomID %></div>
+    <div class="status-message" id="status">
+      <% if (isSender) { %>
+        Your screen sharing is live
+      <% } else { %>
+        Waiting for the sender to start sharing...
+      <% } %>
+    </div>
+  </div>
+
+  <div class="screen-container">
+    <video id="video" autoplay playsinline></video>
+  </div>
+</div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/screenshare.js"></script>

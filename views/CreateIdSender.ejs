@@ -58,8 +58,7 @@
 <!-- Add Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<script src="/js/animations.js"></script>
-<script src="/js/navigation.js"></script>
+<script src="/js/script.js"></script>
 <script>
     async function generateID() {
         let userName = document.getElementById("userName").value.trim();
@@ -107,7 +106,7 @@
             return;
         }
         localStorage.setItem("isSender", "true");
-        window.location.href = `/room/${roomID}`;
+        window.location.href = `/room/${roomID}?isSender=true`;
     }
 
     function showNotification(message, type) {
