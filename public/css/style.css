@@ -905,6 +905,7 @@ body {
         top: 1rem;
         z-index: 1001;
         cursor: pointer;
+        padding: 0.5rem;
     }
 
     .hamburger .bar {
